@@ -1,24 +1,27 @@
-var mysql = require("mysql");
-var inquirer = require("inquirer");
+//GLOBAL VARIBLES 
+//=============================================================
+const mysql = require("mysql");
+const inquirer = require("inquirer");
+const unserInput = "";
 
-// create the connection information for the sql database
-var connection = mysql.createConnection({
+//connecting node and mysql
+//=============================================================
+
+const connection = mysql.createConnection({
   host: "localhost",
-
-  // Your port; if not 3306
   port: 3306,
-
-  // Your username
   user: "root",
-
-  // Your password
-  password: "",
-  database: "greatBay_DB"
+  password: "password",
+  database: "bamazon_db"
 });
 
-// connect to the mysql server and sql database
+
 connection.connect(function(err) {
-  if (err) throw err;
-  // run the start function after the connection is made to prompt the user
-  start();
+  if (err) {
+      throw err
+    }else {
+        console.log("connected as id: "+connection.threadId);
+    }
+  
 });
+
