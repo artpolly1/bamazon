@@ -17,9 +17,15 @@
   },
   "homepage": "https://github.com/artpolly1/bamazon#readme",
   "dependencies": {
+    "chalk": "^2.4.2",
+    "chalk-pipe": "^2.0.0",
+    "cli-table": "^0.3.1",
+    "cli-table2": "^0.2.0",
+    "console.table": "^0.10.0",
     "dotenv": "^8.0.0",
     "inquirer": "^6.3.1",
     "mysql": "^2.17.1",
-    "require": "^2.4.20"
+    "require": "^2.4.20",
+    "table": "^5.3.3"
   }
 }
