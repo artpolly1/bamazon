@@ -38,10 +38,10 @@ connection.query("select * from products" ,function (err, rows, fields) {
         console.log(err);
         return;
     }
-    // rows.forEach(function(result){
-    //     console.log (result.item_id,result.product_name, result.department_name , result.price, result.stock_quantity);
+    rows.forEach(function(result){
+        console.log (result.item_id,result.product_name, result.department_name , result.price, result.stock_quantity);
        
-    // })
+    })
     start();
 });
 
@@ -50,13 +50,13 @@ connection.query("select * from products" ,function (err, rows, fields) {
 function start(){
   
   inquirer.prompt ({
-    name: "itemToBidOn",
+    name: "itemToBuy",
     type: "input",
     message: "What is the item_id of the product they would like to buy?",
     // choices: []
 }).then(function(answer){
   if(answer.itemToBidOn === '1' ||'2'||'3'||'4'||'5'||'6'||'7'||'8'||'9'||'10'){
-    postBid();
+    purchaseShoes();
    }else {
        console.log('Please try again');
    }
@@ -67,13 +67,13 @@ console.log(err);
 };
 
 
-function postBid(){
+function purchaseShoes(){
   connection.query("SELECT * FROM products", function(err, results){
       if (err) throw err;
       inquirer.prompt([
 
           {
-            name: "bidChoice",
+            name: "purchaseChoice",
             type: "input",
             choices: function() {
                 const choiceArray = [];
@@ -82,13 +82,8 @@ function postBid(){
                 }
                 return choiceArray;
             },
-            message: "how many would you liek to purchase?"
+            message: "how many pair would you like to add to your cart ?"
            
-          },
-          {
-              name: "bid",
-              type: "input",
-              message: "test"
           }
       ]) .then(function(answer){
           let chosenItem;
@@ -97,7 +92,7 @@ function postBid(){
                   chosenItem = results[i];
               }
           }
-          if (chosenItem.highest_bid < parseInt(answer.bid)) {
+          if (chosenItem.product_name < parseInt(answer.bid)) {
               // bid was high enough, so update db, let the user know, and start over
               connection.query(
                 "UPDATE auctions SET ? WHERE ?",
