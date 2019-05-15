@@ -93,12 +93,12 @@ function purchaseShoes(){
               }
           }
           if (chosenItem.product_name < parseInt(answer.bid)) {
-              // bid was high enough, so update db, let the user know, and start over
+              
               connection.query(
-                "UPDATE auctions SET ? WHERE ?",
+                "UPDATE products SET ? WHERE ?",
                 [
                   {
-                    highest_bid: answer.bid
+                    product_name: answer.choice
                   },
                   {
                     id: chosenItem.id
@@ -106,7 +106,7 @@ function purchaseShoes(){
                 ],
                 function(error) {
                   if (error) throw err;
-                  console.log("Bid placed successfully!");
+                  console.log("Purchase made successfully!");
                   start();
                 }
               );
