@@ -55,8 +55,8 @@ function start(){
     message: "What is the item_id of the product they would like to buy?",
     // choices: []
 }).then(function(answer){
-  if(answer.itemToBidOn === '1' ||'2'||'3'||'4'||'5'||'6'||'7'||'8'||'9'||'10'){
-    purchaseShoes();
+  if(answer.purchaseShoes === '1' ||'2'||'3'||'4'||'5'||'6'||'7'||'8'||'9'||'10'){
+    purchaseShoes(answer.itemToBuy);
    }else {
        console.log('Please try again');
    }
@@ -67,8 +67,8 @@ console.log(err);
 };
 
 
-function purchaseShoes(){
-  connection.query("SELECT * FROM products", function(err, results){
+function purchaseShoes(item_id){
+  connection.query("SELECT * FROM products WHERE item_id = ?", [item_id], function(err, results){
       if (err) throw err;
       inquirer.prompt([
 
@@ -78,7 +78,7 @@ function purchaseShoes(){
             choices: function() {
                 const choiceArray = [];
                 for (let i = 0; i < results.length; i++) {
-                    choiceArray.push(results[i].product_name);
+                    choiceArray.push(results[i].item_id);
                 }
                 return choiceArray;
             },
@@ -86,30 +86,37 @@ function purchaseShoes(){
            
           }
       ]) .then(function(answer){
-          let chosenItem;
-          for (let i = 0; i < results.length; i++) {
-              if(results[1].product_name === answer.choice) {
-                  chosenItem = results[i];
-              }
-          }
-          if (chosenItem.product_name < parseInt(answer.bid)) {
+           let stock_quantity = results[0].stock_quantity;
+           let price = results[0].price;
+            // console.log(results);
+          // let chosenItem;
+          // console.log(answer);
+
+          // for (let i = 0; i < results.length; i++) {
+          //     if(results[1].product_name === answer.choice) {
+          //         chosenItem = results[i];
+          //     }
+          // }
+
+          // console.log(stock_quantity);
+          // console.log(answer.purchaseChoice);
+          if (stock_quantity > parseInt(answer.purchaseChoice)) {
               
               connection.query(
-                "UPDATE products SET ? WHERE ?",
-                [
-                  {
-                    product_name: answer.choice
-                  },
-                  {
-                    id: chosenItem.id
-                  }
-                ],
+                "UPDATE products SET stock_quantity = ? WHERE item_id = ?",
+                [stock_quantity - parseInt(answer.purchaseChoice), item_id],
+                
+                
                 function(error) {
                   if (error) throw err;
                   console.log("Purchase made successfully!");
+                  console.log("Your total cost " + price * parseInt(answer.purchaseChoice));
                   start();
                 }
               );
+      }else {
+        console.log('Insufficient quantity');
+        start();
       }
             
 
