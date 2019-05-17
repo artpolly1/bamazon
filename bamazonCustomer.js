@@ -4,7 +4,7 @@ const mysql = require("mysql");
 const chalkPipe = require("chalk-pipe");
 const inquirer = require("inquirer");
 require('console.table');
-const unserInput = "";
+
 
 
 //connecting node and mysql
@@ -56,7 +56,9 @@ function start(){
   if(answer.purchaseShoes === '1' ||'2'||'3'||'4'||'5'||'6'||'7'||'8'||'9'||'10'){
     purchaseShoes(answer.itemToBuy);
    }else {
-       console.log('Please try again');
+       console.log (chalkPipe('redBright')('Please Try again'));
+       
+      
    }
 }).catch(function(err){
 console.log(err);
@@ -80,7 +82,8 @@ function makeAnotherPurchase(){
     if(answer.makeAnotherPurchase === 'yes') {
       start();
     }else {
-      console.log('Thank you for visiting out site! Good Bye.');
+      console.log (chalkPipe('blue')('Thank you for visiting our site, Good Bye.'));
+
     }
 
   })
@@ -122,13 +125,14 @@ function purchaseShoes(item_id){
                 
                 function(error) {
                   if (error) throw err;
-                  console.log("Purchase made successfully!");
-                  console.log("Your total cost " + price * parseInt(answer.purchaseChoice));
+                  console.log(chalkPipe('greenBright')("Purchase made successfully!"));
+                  console.log("Your total cost " + '$' + price * parseInt(answer.purchaseChoice));
+                
                   makeAnotherPurchase();
                 }
               );
       }else {
-        console.log('Insufficient quantity');
+        console.log (chalkPipe('red')('Insufficient quantity!'));
         makeAnotherPurchase();
       }
             
