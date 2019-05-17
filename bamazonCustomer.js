@@ -3,9 +3,6 @@
 const mysql = require("mysql");
 const chalkPipe = require("chalk-pipe");
 const inquirer = require("inquirer");
-require('console.table');
-
-
 
 //connecting node and mysql
 //=============================================================
@@ -66,6 +63,8 @@ console.log(err);
 
 };
 
+//THIS IS THE FUNCTION THAT TRIGGERS THE RESTARTS/ ENDS INQUIRIER PURCHASE PROMPTS 
+//============================================================================
 function makeAnotherPurchase(){
   inquirer.prompt ({
     name: "makeAnotherPurchase",
@@ -92,7 +91,7 @@ function makeAnotherPurchase(){
 
 
 
-//THIS IS THE PURCHASE FUNCTION THAT TRIGGERS THE INQUIRIER PROMPTS 
+//THIS IS THE PURCHASE FUNCTION THAT TRIGGERS THE INQUIRIER PURCHASE PROMPTS 
 //============================================================================
 function purchaseShoes(item_id){
   connection.query("SELECT * FROM products WHERE item_id = ?", [item_id], function(err, results){
