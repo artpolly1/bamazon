@@ -1,6 +1,6 @@
 # BAMAZON
 
-Bamazon is an Amazon-like storefront created to demonstrate a developed skillset through the power of MYSQL. The basic functionality of the this app is to take shoe orders from customers, total those shoe orders and decrement the inventory based on customer purchases.
+Bamazon is an Amazon-like storefront created to demonstrate a developed skillset through the power of MYSQL. The basic functionality of the this app is to take shoe orders from customers, total the cost of those shoe orders and decrement the inventory based on customer purchases.
 
 ## To test the functionally of this app 
 1. Open your terminal 
