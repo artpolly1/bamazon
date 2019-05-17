@@ -16,12 +16,9 @@ npm install: mysql, chalkPipe, inquirer
 
 
 
-### Bamazon demo
+### Bamazon video demo
 
-
-```
 https://drive.google.com/file/d/1gxTsImhdvdMIe15pUtLDtgClMgsUFPRS/view
-```
 
 ## Authors
 
